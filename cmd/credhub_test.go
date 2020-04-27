@@ -26,7 +26,7 @@ var _ = Describe("CredHub", func() {
 			Expect(err).NotTo(HaveOccurred())
 
 			Expect(graph).To(Equal(`digraph G {
-	"/my/cert"->"/my/ca";
+	"/my/ca"->"/my/cert";
 	"/my/ca" [ label="/my/ca" ];
 	"/my/cert" [ label="/my/cert" ];
 	"/my/leaf" [ label="/my/leaf" ];

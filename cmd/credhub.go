@@ -94,8 +94,8 @@ func VisualizeCredHub(in io.Reader) (string, error) {
 		}
 
 		err = g.AddEdge(
-			certificate.Name,
 			*certificate.SignedBy,
+			certificate.Name,
 			/* directed */ true,
 			/* attrs */ nil,
 		)
