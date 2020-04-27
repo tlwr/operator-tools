@@ -2,6 +2,11 @@
 
 CLI for me
 
+```
+go get github.com/tlwr/operator-tools
+alias op='operator-tools'
+```
+
 ## Commands
 
 ### CredHub
