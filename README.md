@@ -29,3 +29,33 @@ opt credhub visualize-certificates |\
 dot -Tpng -o /tmp/certs.png ;
 open /tmp/certs.png
 ```
+
+### YAML
+
+```
+op yaml
+```
+
+Interact with
+[CredHub](https://docs.cloudfoundry.org/credhub/).
+
+Do things with [YAML](https://yaml.org/).
+
+### Find things in YAML
+
+Use [BOSH interpolate's path syntax](https://bosh.io/docs/cli-int/) to traverse
+YAML.
+
+```
+# Access by key
+op yaml find -p /users < f.yml
+
+# Access by key and value
+op yaml find -p /users/name=tlwr < f.yml
+
+# First element of a list
+op yaml find -p /0 < f.yml
+
+# Access by key and value, and list element
+op yaml find -p /users/name=tlwr/roles/0 < f.yml
+```
