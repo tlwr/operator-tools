@@ -23,7 +23,6 @@ func CredHubCmd() *cli.Command {
 
 				Action: func(c *cli.Context) error {
 					graphStr, err := VisualizeCredHub(os.Stdin)
-
 					if err != nil {
 						return err
 					}
