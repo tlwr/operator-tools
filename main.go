@@ -12,6 +12,7 @@ func main() {
 	app := &cli.App{
 		Commands: []*cli.Command{
 			cmd.CredHubCmd(),
+			cmd.HTTPCmd(),
 			cmd.YamlCmd(),
 		},
 	}
