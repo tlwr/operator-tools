@@ -65,6 +65,14 @@ func HTTPCmd() *cli.Command {
 						return err
 					}
 
+					fmt.Printf("%s %s\n", resp.Proto, resp.Status)
+					fmt.Println("\nHeaders:")
+					for headerName, headerVals := range resp.Header {
+						for _, headerVal := range headerVals {
+							fmt.Printf("%s: %s\n", headerName, headerVal)
+						}
+					}
+
 					_, err = ioutil.ReadAll(resp.Body)
 					if err != nil {
 						return err
@@ -111,6 +119,7 @@ func HTTPCmd() *cli.Command {
 						return err
 					}
 
+					fmt.Println("\nTrace:")
 					fmt.Print(rendered)
 
 					return nil

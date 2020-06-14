@@ -47,13 +47,26 @@ Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
 
 ```
 op http profile -u https://healthcheck.cloudapps.digital/
-|=============================================================================================| total duration 309ms
-|~~~~~~~~~~~~                                                                                 | dns from 0ms until 43ms duration 43ms
-|            ~~~~                                                                             | connect from 43ms until 59ms duration 16ms
-|                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                        | tls from 59ms until 181ms duration 122ms
-|                                                      x                                      | request-headers-done at 181ms
-|                                                      x                                      | request-done at 181ms
-|                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~ | reading-response from 227ms until 309ms duration 82ms
+HTTP/2.0 200 OK
+
+Headers:
+Accept-Ranges: bytes
+Cache-Control: max-age=0,no-store,no-cache
+Last-Modified: Fri, 12 Jun 2020 11:27:56 GMT
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Vcap-Request-Id: 71c47bb4-33e4-417b-4388-397596a77894
+Date: Sun, 14 Jun 2020 22:50:25 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 222223
+
+Trace:
+|=============================================================================================| total duration 266ms
+|~~~~~~~~                                                                                     | dns from 0ms until 24ms duration 24ms
+|        ~~~~~                                                                                | connect from 24ms until 40ms duration 16ms
+|             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                     | tls from 40ms until 164ms duration 124ms
+|                                                         x                                   | request-headers-done at 164ms
+|                                                         x                                   | request-done at 164ms
+|                                                                       ~~~~~~~~~~~~~~~~~~~~~ | reading-response from 205ms until 266ms duration 61ms
 ```
 
 ### YAML
