@@ -46,14 +46,15 @@ Utilities for doing things via HTTP
 Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
 
 ```
-$ op http profile -u https://www.toby.codes
-|=============================================================================================| total duration 140ms
-|~~~~~                                                                                        | dns from 0ms until 9ms duration 9ms
-|     ~~~~~~~                                                                                 | connect from 9ms until 21ms duration 12ms
-|             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             | tls from 21ms until 123ms duration 102ms
-|                                                                                  x          | request-headers-done at 124ms
-|                                                                                  x          | request-done at 124ms
-|                                                                                            x| first-response-byte at 139ms
+$ op http profile -u https://healthcheck.cloudapps.digital/
+|=============================================================================================| total duration 309ms
+|~~~~~~~~~~~~                                                                                 | dns from 0ms until 43ms duration 43ms
+|            ~~~~                                                                             | connect from 43ms until 59ms duration 16ms
+|                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                        | tls from 59ms until 181ms duration 122ms
+|                                                      x                                      | request-headers-done at 181ms
+|                                                      x                                      | request-done at 181ms
+|                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~ | reading-response from 227ms until 309ms duration 82ms
+|                                                                    x                        | first-response-byte at 227ms
 ```
 
 ### YAML

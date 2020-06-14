@@ -102,7 +102,7 @@ func HTTPCmd() *cli.Command {
 						),
 
 						timeline.NewTimelineEntry(
-							trace.FirstResponseByteDone, nil, "first-response-byte",
+							trace.FirstResponseByteDone, &trace.End, "reading-response",
 						),
 					)
 
