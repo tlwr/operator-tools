@@ -54,7 +54,6 @@ op http profile -u https://healthcheck.cloudapps.digital/
 |                                                      x                                      | request-headers-done at 181ms
 |                                                      x                                      | request-done at 181ms
 |                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~ | reading-response from 227ms until 309ms duration 82ms
-|                                                                    x                        | first-response-byte at 227ms
 ```
 
 ### YAML
