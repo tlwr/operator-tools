@@ -2,6 +2,7 @@ package timeline
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 	"time"
@@ -130,7 +131,7 @@ func (t timeline) renderEntry(entry TimelineEntry) (string, error) {
 	leftPad := int(startPerc * float64(t.borderedWidth()))
 
 	if entry.IsEvent() {
-		rightPad := t.borderedWidth() - leftPad - 1
+		rightPad := int(math.Max(float64(t.borderedWidth()-leftPad-1), 0))
 		eventAfter := entry.Start().Sub(t.Start()).Milliseconds()
 
 		rendered := "|" + strings.Repeat(" ", leftPad) + "x"
