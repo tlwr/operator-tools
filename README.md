@@ -30,6 +30,32 @@ dot -Tpng -o /tmp/certs.png ;
 open /tmp/certs.png
 ```
 
+### HTTP
+
+```
+op http
+```
+
+Interact with
+[CredHub](https://docs.cloudfoundry.org/credhub/).
+
+Utilities for doing things via HTTP
+
+### Profile a HTTP request/response
+
+Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
+
+```
+$ op http profile -u https://www.toby.codes
+|=============================================================================================| total duration 140ms
+|~~~~~                                                                                        | dns from 0ms until 9ms duration 9ms
+|     ~~~~~~~                                                                                 | connect from 9ms until 21ms duration 12ms
+|             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             | tls from 21ms until 123ms duration 102ms
+|                                                                                  x          | request-headers-done at 124ms
+|                                                                                  x          | request-done at 124ms
+|                                                                                            x| first-response-byte at 139ms
+```
+
 ### YAML
 
 ```
