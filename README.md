@@ -46,7 +46,7 @@ Utilities for doing things via HTTP
 Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
 
 ```
-$ op http profile -u https://healthcheck.cloudapps.digital/
+op http profile -u https://healthcheck.cloudapps.digital/
 |=============================================================================================| total duration 309ms
 |~~~~~~~~~~~~                                                                                 | dns from 0ms until 43ms duration 43ms
 |            ~~~~                                                                             | connect from 43ms until 59ms duration 16ms
