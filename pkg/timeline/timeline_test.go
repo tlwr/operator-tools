@@ -21,7 +21,7 @@ var _ = Describe("Timeline", func() {
 			r, err := t.Render()
 
 			Expect(err).NotTo(HaveOccurred())
-			Expect(r).To(Equal("|========| total duration 1000ms\n"))
+			Expect(r).To(Equal("|========| \x1b[34mtotal duration\x1b[0m was \x1b[33m1000ms\x1b[0m\n"))
 		})
 	})
 
@@ -43,8 +43,8 @@ var _ = Describe("Timeline", func() {
 
 				lines := strings.Split(strings.TrimSpace(r), "\n")
 				Expect(lines).To(HaveLen(2))
-				Expect(lines[0]).To(Equal("|========| total duration 1000ms"))
-				Expect(lines[1]).To(Equal("|    x   | midpoint at 500ms"))
+				Expect(lines[0]).To(Equal("|========| \x1b[34mtotal duration\x1b[0m was \x1b[33m1000ms\x1b[0m"))
+				Expect(lines[1]).To(Equal("|    x   | \x1b[34mmidpoint\x1b[0m at \x1b[33m500ms\x1b[0m"))
 			})
 		})
 	})
@@ -69,9 +69,9 @@ var _ = Describe("Timeline", func() {
 
 				lines := strings.Split(strings.TrimSpace(r), "\n")
 				Expect(lines).To(HaveLen(3))
-				Expect(lines[0]).To(Equal("|========| total duration 1000ms"))
-				Expect(lines[1]).To(Equal("|  x     | first-quartile at 250ms"))
-				Expect(lines[2]).To(Equal("|      x | third-quartile at 750ms"))
+				Expect(lines[0]).To(Equal("|========| \x1b[34mtotal duration\x1b[0m was \x1b[33m1000ms\x1b[0m"))
+				Expect(lines[1]).To(Equal("|  x     | \x1b[34mfirst-quartile\x1b[0m at \x1b[33m250ms\x1b[0m"))
+				Expect(lines[2]).To(Equal("|      x | \x1b[34mthird-quartile\x1b[0m at \x1b[33m750ms\x1b[0m"))
 			})
 		})
 
@@ -95,9 +95,9 @@ var _ = Describe("Timeline", func() {
 
 				lines := strings.Split(strings.TrimSpace(r), "\n")
 				Expect(lines).To(HaveLen(3))
-				Expect(lines[0]).To(Equal("|========| total duration 1000ms"))
-				Expect(lines[1]).To(Equal("|  ~~~~  | middle from 250ms until 750ms duration 500ms"))
-				Expect(lines[2]).To(Equal("|    x   | midpoint at 500ms"))
+				Expect(lines[0]).To(Equal("|========| \x1b[34mtotal duration\x1b[0m was \x1b[33m1000ms\x1b[0m"))
+				Expect(lines[1]).To(Equal("|  ~~~~  | \x1b[34mmiddle\x1b[0m from \x1b[33m250ms\x1b[0m until \x1b[33m750ms\x1b[0m duration \x1b[33m500ms\x1b[0m"))
+				Expect(lines[2]).To(Equal("|    x   | \x1b[34mmidpoint\x1b[0m at \x1b[33m500ms\x1b[0m"))
 			})
 		})
 	})

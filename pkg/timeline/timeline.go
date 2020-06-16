@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	cl "github.com/tlwr/operator-tools/pkg/colour"
 )
 
 type TimelineEntry interface {
@@ -114,9 +116,10 @@ func (t timeline) borderedWidth() int {
 
 func (t timeline) renderSpine() string {
 	return fmt.Sprintf(
-		"|%s| total duration %dms",
+		"|%s| %s was %s",
 		strings.Repeat("=", t.borderedWidth()),
-		t.End().Sub(t.Start()).Milliseconds(),
+		cl.Blue("total duration"),
+		cl.Yellow(fmt.Sprintf("%dms", t.End().Sub(t.Start()).Milliseconds())),
 	)
 }
 
@@ -136,7 +139,11 @@ func (t timeline) renderEntry(entry TimelineEntry) (string, error) {
 
 		rendered := "|" + strings.Repeat(" ", leftPad) + "x"
 		rendered += strings.Repeat(" ", rightPad) + "| "
-		rendered += fmt.Sprintf("%s at %dms", entry.Label(), eventAfter)
+		rendered += fmt.Sprintf(
+			"%s at %s",
+			cl.Blue(entry.Label()),
+			cl.Yellow(fmt.Sprintf("%dms", eventAfter)),
+		)
 		return rendered, nil
 	}
 
@@ -155,10 +162,19 @@ func (t timeline) renderEntry(entry TimelineEntry) (string, error) {
 	rendered := "|" + strings.Repeat(" ", leftPad)
 	rendered += strings.Repeat("~", windowWidth)
 	rendered += strings.Repeat(" ", rightPad) + "| "
-	rendered += entry.Label() + " "
-	rendered += fmt.Sprintf("from %dms ", windowStartAfter)
-	rendered += fmt.Sprintf("until %dms ", windowEndAfter)
-	rendered += fmt.Sprintf("duration %dms", duration)
+	rendered += cl.Blue(entry.Label()) + " "
+	rendered += fmt.Sprintf(
+		"from %s ",
+		cl.Yellow(fmt.Sprintf("%dms", windowStartAfter)),
+	)
+	rendered += fmt.Sprintf(
+		"until %s ",
+		cl.Yellow(fmt.Sprintf("%dms", windowEndAfter)),
+	)
+	rendered += fmt.Sprintf(
+		"duration %s",
+		cl.Yellow(fmt.Sprintf("%dms", duration)),
+	)
 	return rendered, nil
 }
 
