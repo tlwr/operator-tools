@@ -14,6 +14,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
+	cl "github.com/tlwr/operator-tools/pkg/colour"
 	"github.com/tlwr/operator-tools/pkg/timeline"
 )
 
@@ -65,11 +66,25 @@ func HTTPCmd() *cli.Command {
 						return err
 					}
 
-					fmt.Printf("%s %s\n", resp.Proto, resp.Status)
+					fmt.Println("Status:")
+					fmt.Printf(
+						"%s %s\n",
+						cl.Blue(fmt.Sprintf(
+							"HTTP/%d.%d",
+							resp.ProtoMajor,
+							resp.ProtoMinor,
+						)),
+						cl.Yellow(resp.Status),
+					)
+
 					fmt.Println("\nHeaders:")
 					for headerName, headerVals := range resp.Header {
 						for _, headerVal := range headerVals {
-							fmt.Printf("%s: %s\n", headerName, headerVal)
+							fmt.Printf(
+								"%s: %s\n",
+								cl.Blue(headerName),
+								cl.Yellow(headerVal),
+							)
 						}
 					}
 
