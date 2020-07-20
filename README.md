@@ -36,9 +36,6 @@ open /tmp/certs.png
 op http
 ```
 
-Interact with
-[CredHub](https://docs.cloudfoundry.org/credhub/).
-
 Utilities for doing things via HTTP
 
 ### Profile a HTTP request/response
@@ -74,9 +71,6 @@ Trace:
 ```
 op yaml
 ```
-
-Interact with
-[CredHub](https://docs.cloudfoundry.org/credhub/).
 
 Do things with [YAML](https://yaml.org/).
 
