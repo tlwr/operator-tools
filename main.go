@@ -13,6 +13,7 @@ func main() {
 		Commands: []*cli.Command{
 			cmd.CredHubCmd(),
 			cmd.HTTPCmd(),
+			cmd.X509Cmd(),
 			cmd.YamlCmd(),
 		},
 	}

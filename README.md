@@ -18,7 +18,7 @@ op credhub
 Interact with
 [CredHub](https://docs.cloudfoundry.org/credhub/).
 
-### Visualize certificates
+#### Visualize certificates
 
 Produces a particularly illegible DAG of CredHub certificates and certificate
 authorities.
@@ -38,7 +38,7 @@ op http
 
 Utilities for doing things via HTTP
 
-### Profile a HTTP request/response
+#### Profile a HTTP request/response
 
 Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
 
@@ -66,6 +66,29 @@ Trace:
 |                                                                       ~~~~~~~~~~~~~~~~~~~~~ | reading-response from 205ms until 266ms duration 61ms
 ```
 
+### x509
+
+```
+op x509
+```
+
+Do things with x509 (eg certificates).
+
+#### Find certificates
+
+```
+# Finds expiring certificates
+op x509 fc
+
+# Finds certificates expiring within 180 days
+op x509 fc --expiry-days 180
+
+# Finds certificates excluding fixtures and testdata directories
+op x509 fc --exclude fixtures,testdata
+```
+
+
+
 ### YAML
 
 ```
@@ -74,7 +97,7 @@ op yaml
 
 Do things with [YAML](https://yaml.org/).
 
-### Find things in YAML
+#### Find things in YAML
 
 Use [BOSH interpolate's path syntax](https://bosh.io/docs/cli-int/) to traverse
 YAML.
