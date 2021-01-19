@@ -151,33 +151,23 @@ func HTTPCmd() *cli.Command {
 					}
 					width /= 2
 
-					tl := timeline.NewTimeline(
-						trace.Start, trace.End, width,
-
-						timeline.NewTimelineEntry(
-							trace.DNSLookupStart, &trace.DNSLookupDone, "dns",
-						),
-
-						timeline.NewTimelineEntry(
-							trace.ConnectStart, &trace.ConnectDone, "connect",
-						),
-
-						timeline.NewTimelineEntry(
-							trace.TLSStart, &trace.TLSDone, "tls",
-						),
-
-						timeline.NewTimelineEntry(
-							trace.WroteRequestHeadersDone, nil, "request-headers-done",
-						),
-
-						timeline.NewTimelineEntry(
-							trace.WroteRequestDone, nil, "request-done",
-						),
-
-						timeline.NewTimelineEntry(
-							trace.FirstResponseByteDone, &trace.End, "reading-response",
-						),
+					entries := []timeline.TimelineEntry{}
+					entries = append(
+						entries,
+						timeline.NewTimelineEntry(trace.DNSLookupStart, &trace.DNSLookupDone, "dns"),
+						timeline.NewTimelineEntry(trace.ConnectStart, &trace.ConnectDone, "connect"),
 					)
+					if trace.TLSConnStateInfo != nil {
+						entries = append(entries, timeline.NewTimelineEntry(trace.TLSStart, &trace.TLSDone, "tls"))
+					}
+					entries = append(
+						entries,
+						timeline.NewTimelineEntry(trace.WroteRequestHeadersDone, nil, "request-headers-done"),
+						timeline.NewTimelineEntry(trace.WroteRequestDone, nil, "request-done"),
+						timeline.NewTimelineEntry(trace.FirstResponseByteDone, &trace.End, "reading-response"),
+					)
+
+					tl := timeline.NewTimeline(trace.Start, trace.End, width, entries...)
 
 					rendered, err := tl.Render()
 					if err != nil {
