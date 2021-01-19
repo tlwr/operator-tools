@@ -44,26 +44,33 @@ Produces a timeline of an HTTP request: DNS, TCP, TLS, request, response.
 
 ```
 op http profile -u https://healthcheck.cloudapps.digital/
+TLS:
+Version: TLSv1.2
+Cipher-Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+Server-Name: healthcheck.cloudapps.digital
+Negotiated-Protocol: h2
+
+Status:
 HTTP/2.0 200 OK
 
 Headers:
-Accept-Ranges: bytes
-Cache-Control: max-age=0,no-store,no-cache
-Last-Modified: Fri, 12 Jun 2020 11:27:56 GMT
 Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-X-Vcap-Request-Id: 71c47bb4-33e4-417b-4388-397596a77894
-Date: Sun, 14 Jun 2020 22:50:25 GMT
+X-Vcap-Request-Id: 0b8b6360-a978-4dc2-645a-404c5951c194
+Date: Tue, 19 Jan 2021 15:17:42 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: 222223
+Accept-Ranges: bytes
+Cache-Control: max-age=0,no-store,no-cache
+Last-Modified: Tue, 19 Jan 2021 12:40:10 GMT
 
 Trace:
-|=============================================================================================| total duration 266ms
-|~~~~~~~~                                                                                     | dns from 0ms until 24ms duration 24ms
-|        ~~~~~                                                                                | connect from 24ms until 40ms duration 16ms
-|             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                     | tls from 40ms until 164ms duration 124ms
-|                                                         x                                   | request-headers-done at 164ms
-|                                                         x                                   | request-done at 164ms
-|                                                                       ~~~~~~~~~~~~~~~~~~~~~ | reading-response from 205ms until 266ms duration 61ms
+|=======================================================| total duration was 607ms
+|~~~~~~~~~~                                             | dns from 0ms until 139ms duration 139ms
+|          ~~~~                                         | connect from 140ms until 174ms duration 34ms
+|              ~~~~~~~~~~~~~~~~~~~~~~~~~                | tls from 174ms until 432ms duration 258ms
+|                                        x              | request-headers-done at 432ms
+|                                        x              | request-done at 432ms
+|                                             ~~~~~~~~~ | reading-response from 479ms until 607ms duration 128ms
 ```
 
 ### x509
