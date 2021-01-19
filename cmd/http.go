@@ -46,7 +46,6 @@ func HTTPCmd() *cli.Command {
 					}
 
 					trace := HTTPTrace{}
-					trace.Begin()
 
 					ctx := httptrace.WithClientTrace(context.TODO(), trace.Trace())
 
@@ -203,6 +202,10 @@ type HTTPTrace struct {
 
 func (t *HTTPTrace) Trace() *httptrace.ClientTrace {
 	return &httptrace.ClientTrace{
+		GetConn: func(_ string) {
+			t.Start = time.Now()
+		},
+
 		DNSStart: func(_ httptrace.DNSStartInfo) {
 			t.DNSLookupStart = time.Now()
 		},
@@ -238,10 +241,6 @@ func (t *HTTPTrace) Trace() *httptrace.ClientTrace {
 			t.FirstResponseByteDone = time.Now()
 		},
 	}
-}
-
-func (t *HTTPTrace) Begin() {
-	t.Start = time.Now()
 }
 
 func (t *HTTPTrace) Finish() {
