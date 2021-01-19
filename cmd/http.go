@@ -66,6 +66,56 @@ func HTTPCmd() *cli.Command {
 						return err
 					}
 
+					if trace.TLSConnStateInfo != nil {
+						cs := trace.TLSConnStateInfo
+
+						fmt.Println("TLS:")
+
+						fmt.Printf("%s: ", cl.Blue("Version"))
+						if cs.Version == tls.VersionSSL30 || cs.Version == tls.VersionTLS10 || cs.Version == tls.VersionTLS11 {
+							versions := map[uint16]string{
+								tls.VersionSSL30: "SSLv3",
+								tls.VersionTLS10: "TLSv1.0",
+								tls.VersionTLS11: "TLSv1.1",
+							}
+							fmt.Println(cl.Red(versions[cs.Version]))
+						} else if cs.Version == tls.VersionTLS12 {
+							fmt.Println(cl.Blue("TLSv1.2"))
+						} else if cs.Version == tls.VersionTLS13 {
+							fmt.Println(cl.Green("TLSv1.3"))
+						} else {
+							fmt.Println(cl.Yellow(fmt.Sprintf("%v", cs.Version)))
+						}
+
+						fmt.Printf("%s: ", cl.Blue("Cipher-Suite"))
+						suiteIsInsecure := false
+						suiteIsFound := false
+						for _, suite := range tls.InsecureCipherSuites() {
+							if suite.ID == cs.CipherSuite {
+								suiteIsInsecure = true
+								break
+							}
+						}
+						for _, suite := range tls.CipherSuites() {
+							if suite.ID == cs.CipherSuite {
+								suiteIsFound = true
+								break
+							}
+						}
+						if suiteIsInsecure {
+							fmt.Println(cl.Red(tls.CipherSuiteName(cs.CipherSuite)))
+						} else if suiteIsFound {
+							fmt.Println(cl.Green(tls.CipherSuiteName(cs.CipherSuite)))
+						} else {
+							fmt.Println(cl.Yellow(fmt.Sprintf("%v", cs.CipherSuite)))
+						}
+
+						fmt.Printf("%s: %s\n", cl.Blue("Server-Name"), cl.Yellow(cs.ServerName))
+						fmt.Printf("%s: %s\n", cl.Blue("Negotiated-Protocol"), cl.Yellow(cs.NegotiatedProtocol))
+
+						fmt.Println()
+					}
+
 					fmt.Println("Status:")
 					fmt.Printf(
 						"%s %s\n",
@@ -157,6 +207,8 @@ type HTTPTrace struct {
 	WroteRequestHeadersDone time.Time
 	WroteRequestDone        time.Time
 	FirstResponseByteDone   time.Time
+
+	TLSConnStateInfo *tls.ConnectionState
 }
 
 func (t *HTTPTrace) Trace() *httptrace.ClientTrace {
@@ -178,8 +230,10 @@ func (t *HTTPTrace) Trace() *httptrace.ClientTrace {
 		TLSHandshakeStart: func() {
 			t.TLSStart = time.Now()
 		},
-		TLSHandshakeDone: func(_ tls.ConnectionState, _ error) {
+		TLSHandshakeDone: func(cs tls.ConnectionState, _ error) {
 			t.TLSDone = time.Now()
+
+			t.TLSConnStateInfo = &cs
 		},
 
 		WroteHeaders: func() {
