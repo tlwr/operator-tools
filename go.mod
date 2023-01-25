@@ -6,7 +6,7 @@ require (
 	github.com/awalterschulze/gographviz v2.0.3+incompatible
 	github.com/cppforlife/go-patch v0.2.0
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/gomega v1.24.2
+	github.com/onsi/gomega v1.26.0
 	github.com/urfave/cli/v2 v2.20.2
 	golang.org/x/crypto v0.1.0
 	golang.org/x/tools v0.5.0
