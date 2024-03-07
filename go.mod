@@ -9,6 +9,6 @@ require (
 	github.com/onsi/gomega v1.31.1
 	github.com/urfave/cli/v2 v2.27.1
 	golang.org/x/crypto v0.21.0
-	golang.org/x/tools v0.18.0
+	golang.org/x/tools v0.19.0
 	gopkg.in/yaml.v2 v2.4.0
 )
