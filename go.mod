@@ -8,7 +8,7 @@ require (
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.34.1
 	github.com/urfave/cli/v2 v2.27.6
-	golang.org/x/crypto v0.44.0
+	golang.org/x/crypto v0.45.0
 	golang.org/x/tools/godoc v0.1.0-deprecated
 	gopkg.in/yaml.v2 v2.4.0
 )
